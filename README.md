@@ -328,4 +328,165 @@ Works best in:
 
 ## License
 
+---
+
+## Unlock Messages Guide
+
+This section lists all the text, notifications, and messages that appear when songs are unlocked.
+
+### Quiz Feedback Messages
+
+| Message | Condition |
+|---------|-----------|
+| `✓ VERITAS! Correct!` | Truth table answered correctly |
+| `✓ VERITAS! Gate N Unlocked!` | Gate puzzle completed |
+| `🎵 [Song Name]` | Song unlocked indicator |
+| `✗ Incorrect. Attempts: N/4` | Wrong answer (quest puzzles) |
+| `✗ Incorrect. Try again.` | Wrong answer (gate puzzles) |
+| `✗ Out of attempts! Try again later.` | Failed 4 times on quest puzzle |
+
+### Character Quest Complete Messages
+
+#### Sakiko Togawa (Oblivionis) - Implication
+```
+✨ QUEST COMPLETE ✨
+
+You have mastered Implication!
+
+Song Unlocked: Masquerade Rhapsody Request
+
+"Truth doesn't imprison. Only lies do."
+```
+
+#### Uika Misumi (Doloris) - XOR
+```
+✨ QUEST COMPLETE ✨
+
+You have mastered XOR!
+
+Song Unlocked: Angles
+
+"Different doesn't mean divided."
+```
+
+#### Mutsumi Wakaba (Mortis) - Negation
+```
+✨ QUEST COMPLETE ✨
+
+You have mastered Negation!
+
+Song Unlocked: Choir 'S' Choir
+
+"We are not broken. We are complete."
+```
+
+#### Umiri Yahata (Timoris) - NOR
+```
+✨ QUEST COMPLETE ✨
+
+You have mastered NOR!
+
+Song Unlocked: 'S/' The Way
+
+"Safe isn't the same as home."
+```
+
+#### Nyamu Yūtenji (Amoris) - NAND
+```
+✨ QUEST COMPLETE ✨
+
+You have mastered NAND!
+
+Song Unlocked: Blue Eyes
+
+"I am alive. Finally, truly alive."
+```
+
+### Gate Unlock Messages
+```
+✓ VERITAS! Gate [N] Unlocked!
+🎵 [Gate Song Name]
+```
+
+### Final Masquerade Notification
+```
+Title: 🔮 The Final Masquerade 🔮
+
+You have completed all character quests!
+
+The final truth of Ave Mujica awaits...
+
+Would you like to experience it now?
+
+[Yes, Experience It] [Later]
+```
+
+### Final Masquerade Finale (Standard)
+
+**Title:** THE FINAL MASQUERADE
+
+**Scene:** The five stand on stage, not as band members, but as themselves - scarred, healing, human. The masks lie at their feet.
+
+**Character Dialogues:**
+| Character | Quote |
+|-----------|-------|
+| **Sakiko:** | "I learned that promises don't have to be prisons..." |
+| **Uika:** | "I learned that exclusive love can coexist with inclusive belonging..." |
+| **Mutsumi:** | "I learned that who I'm NOT helps define who I AM..." |
+| **Umiri:** | "I learned that vulnerability is worth more than safety..." |
+| **Nyamu:** | "I learned that I exist whether I'm seen or not..." |
+
+**All Together:** "We are Ave Mujica. We are broken. We are healing. We are logical. We are human. We are true."
+
+**Final Message:** "We are not just logical operations. We are not just broken girls. We are Ave Mujica. And our truth is whatever we make it."
+
+### Secret Ending (All 16 Gates Complete)
+
+**Title:** THE TRUTH BEYOND THE MASQUERADE - SECRET ENDING
+
+**Scene:** The five stand together, no masks, no lies, no fear.
+
+**Character Dialogues:**
+| Character | Quote |
+|-----------|-------|
+| **Sakiko:** | "We thought logic was the answer. But logic alone couldn't heal us." |
+| **Uika:** | "XOR said we had to choose. But love doesn't have to be exclusive to be true." |
+| **Mutsumi:** | "Negation taught us what we're NOT. But finding what we ARE was the real journey." |
+| **Umiri:** | "NOR kept us safe from hurt. But being safe also meant being alone." |
+| **Nyamu:** | "NAND made us chase approval. But the only approval we needed was our own." |
+
+**Final Song:** They play one final song together - not about escaping their voids, but about filling them with each other.
+
+**Final Quote:** "We are Ave Mujica. Not because we're broken. But because we chose to heal together."
+
+**Achievement Unlocked:**
+```
+✨✨✨ SECRET ACHIEVEMENT UNLOCKED ✨✨✨
+"Truth Seeker"
+Discover the ending beyond the masquerade
+```
+
+**Epilogue:**
+```
+All 16 songs now play their full versions.
+The Cathedral's candles burn brighter.
+And somewhere, a new melody begins to form...
+```
+
+### Progress Indicators
+
+| Status | Badge Text | Color |
+|--------|------------|-------|
+| Not Started | `🔓 AVAILABLE` | Blue |
+| In Progress | `⚜ IN PROGRESS` | Gold |
+| Completed | `✓ COMPLETED` | Green |
+
+### Unlock Indicator (Music Player)
+
+| Condition | Icon |
+|-----------|------|
+| No songs unlocked | `🔒 0` |
+| Some songs unlocked | `🔓 N` (N = count) |
+| All songs + secret ending | `✨` |
+
 For educational purposes.

@@ -156,6 +156,8 @@ class LogicGrimoire {
             const charColor = this.getCharacterColor(char.id);
             const songDisplay = this.questCompleted[char.id] ? 
                 `<div class="character-song-unlocked" style="border-color: ${charColor};">🎵 ${char.song}</div>` : '';
+            const isCompleted = this.questCompleted[char.id];
+            
             return `
                 <div class="character-card" onclick="app.openQuest('${char.id}')">
                     <div class="character-image" style="border: 3px solid ${charColor}; border-radius: 8px; overflow: hidden;">
@@ -167,7 +169,7 @@ class LogicGrimoire {
                         <p class="character-op">${char.symbol} ${char.operation}</p>
                         ${songDisplay}
                         <span class="status-badge ${status.class}">${status.text}</span>
-                        <button class="quest-btn">${status.btnText}</button>
+                        <button class="quest-btn" onclick="event.stopPropagation(); app.${isCompleted ? 'replayQuest' : 'openQuest'}('${char.id}')">${status.btnText}</button>
                     </div>
                 </div>
             `;
@@ -234,7 +236,9 @@ class LogicGrimoire {
         
         grid.innerHTML = OPERATIONS.map((op, index) => {
             const completed = this.completedGates.includes(index);
+            const gateSong = GATE_SONGS[index];
             const imageFile = gateImageMap[index];
+            
             return `
                 <div class="gate-card ${completed ? 'completed' : ''}" onclick="app.openGate(${index})">
                     ${completed ? `<img src="assets/images/songs/${imageFile}" alt="${op.name}" class="gate-image" onerror="this.style.display='none'">` : ''}
@@ -275,11 +279,55 @@ class LogicGrimoire {
         document.getElementById('quest-modal').classList.add('active');
     }
     
+    replayQuest(charId) {
+        if (!confirm('🔄 Replay this quest from the beginning?\n\nNote: You will need to complete all stages again to unlock the song.')) {
+            return;
+        }
+        
+        this.currentQuest = charId;
+        this.currentStage = 0;
+        this.questProgress[charId] = 0;
+        this.quizAttempts = 0;
+        
+        const char = CHARACTERS.find(c => c.id === charId);
+        const questData = QUEST_DIALOGUES[charId];
+        
+        this.buildPlaylist();
+        this.renderCharacters();
+        this.updateUnlockIndicator();
+        this.showQuestStage(char, questData);
+        
+        document.getElementById('quest-modal').classList.add('active');
+    }
+    
     showQuestStage(char, questData) {
         const stage = questData.stages[this.currentStage];
         const content = document.getElementById('quest-content');
         const imgPath = `assets/images/character encounters/${char.id}.png`;
         const charColor = this.getCharacterColor(char.id);
+        
+        const totalStages = questData.stages.length;
+        const currentStageNum = this.currentStage + 1;
+        
+        let stageIndicators = '';
+        for (let i = 0; i < totalStages; i++) {
+            let statusClass = 'stage-pending';
+            let statusText = '';
+            
+            if (i < currentStageNum - 1) {
+                statusClass = 'stage-complete';
+                statusText = '✓';
+            } else if (i === currentStageNum - 1) {
+                statusClass = 'stage-current';
+                statusText = i + 1;
+            } else {
+                statusText = i + 1;
+            }
+            
+            stageIndicators += `<div class="stage-indicator ${statusClass}">${statusText}</div>`;
+        }
+        
+        const truthTableGuide = this.getTruthTableGuide(char.operation);
         
         content.innerHTML = `
             <div class="quest-header">
@@ -287,18 +335,148 @@ class LogicGrimoire {
                 <h2 style="color: ${charColor};">${char.name}</h2>
                 <p>${char.symbol} ${char.operation}</p>
                 <p class="section-desc">${char.role}</p>
+                <div class="quest-progress-bar">
+                    ${stageIndicators}
+                </div>
             </div>
             
             <div class="quest-stage">
                 <h3 style="color: ${charColor}; margin-bottom: 15px;">${stage.title}</h3>
                 <div class="quest-dialogue">${stage.dialogue.replace(/\n/g, '<br>')}</div>
+                ${truthTableGuide}
                 <p class="quest-challenge">⚔️ ${stage.challenge}</p>
                 
-                ${this.renderTruthTableQuiz(stage.challenge)}
+                ${this.renderCharacterTruthTable(char.id, this.currentStage)}
             </div>
         `;
         
         this.setupTruthTableQuiz('quest');
+    }
+    
+    renderCharacterTruthTable(charId, stageIndex) {
+        const difficulty = stageIndex === 0 ? 'easy' : (stageIndex === 1 ? 'difficult' : 'hard');
+        const tableData = CHARACTER_TRUTH_TABLES[charId]?.[difficulty];
+        
+        if (!tableData) {
+            return this.renderTruthTableQuiz(QUEST_DIALOGUES[charId].stages[stageIndex].challenge);
+        }
+        
+        const difficultyColors = {
+            easy: { bg: 'rgba(45, 90, 39, 0.3)', label: '🌱 Easy' },
+            difficult: { bg: 'rgba(155, 162, 200, 0.3)', label: '🔥 Difficult' },
+            hard: { bg: 'rgba(139, 0, 0, 0.3)', label: '💀 Hard' }
+        };
+        
+        const difficultyStyle = difficultyColors[difficulty];
+        
+        let html = `
+            <div class="character-truth-table" style="background: ${difficultyStyle.bg}; border: 2px solid var(--dark-purple); border-radius: 8px; padding: 15px; margin: 15px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h4 style="color: var(--gold); margin: 0;">${difficultyStyle.label} Challenge</h4>
+                </div>
+                <table class="truth-table-quiz char-truth-table">
+                    <thead>
+                        <tr>
+                            ${tableData.columns.map(col => `<th>${col}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+        
+        tableData.rows.forEach((row, index) => {
+            const isTwoColumn = tableData.columns.length === 2;
+            html += `
+                <tr>
+                    ${row.values.map((val, i) => {
+                        const isResult = i === row.values.length - 1;
+                        const correctVal = val === 'T';
+                        const displayVal = isResult ? '-' : val;
+                        return `<td class="truth-cell" data-index="${index}" data-col="${i}" data-correct="${correctVal}" data-result="${isResult}" onclick="app.toggleTruth(this)">${displayVal}</td>`;
+                    }).join('')}
+                </tr>
+            `;
+        });
+        
+        html += `
+                    </tbody>
+                </table>
+                <p class="truth-table-desc">${tableData.explanation}</p>
+                <div id="quiz-feedback"></div>
+                <button class="submit-btn" onclick="app.submitQuiz('quest')">Submit Answer</button>
+            </div>
+        `;
+        
+        return html;
+    }
+    
+    getTruthTableGuide(operation) {
+        const guides = {
+            'Implication': `
+                <div class="truth-table-guide">
+                    <h4 style="color: var(--gold); margin: 15px 0 10px;">📖 Implication (P → Q) Guide</h4>
+                    <table class="truth-guide-table">
+                        <tr><th>P</th><th>Q</th><th>P → Q</th></tr>
+                        <tr><td>F</td><td>F</td><td><span style="color: var(--success-green);">T</span></td></tr>
+                        <tr><td>F</td><td>T</td><td><span style="color: var(--success-green);">T</span></td></tr>
+                        <tr><td>T</td><td>F</td><td><span style="color: var(--error-red);">F</span></td></tr>
+                        <tr><td>T</td><td>T</td><td><span style="color: var(--success-green);">T</span></td></tr>
+                    </table>
+                    <p style="font-size: 12px; color: var(--periwinkle); margin-top: 5px;">💡 False implies anything. Only F→F is false.</p>
+                </div>
+            `,
+            'XOR': `
+                <div class="truth-table-guide">
+                    <h4 style="color: var(--gold); margin: 15px 0 10px;">📖 XOR (P ⊕ Q) Guide</h4>
+                    <table class="truth-guide-table">
+                        <tr><th>P</th><th>Q</th><th>P ⊕ Q</th></tr>
+                        <tr><td>F</td><td>F</td><td><span style="color: var(--error-red);">F</span></td></tr>
+                        <tr><td>F</td><td>T</td><td><span style="color: var(--success-green);">T</span></td></tr>
+                        <tr><td>T</td><td>F</td><td><span style="color: var(--success-green);">T</span></td></tr>
+                        <tr><td>T</td><td>T</td><td><span style="color: var(--error-red);">F</span></td></tr>
+                    </table>
+                    <p style="font-size: 12px; color: var(--periwinkle); margin-top: 5px;">💡 True when exactly ONE is true. Same = False.</p>
+                </div>
+            `,
+            'Negation': `
+                <div class="truth-table-guide">
+                    <h4 style="color: var(--gold); margin: 15px 0 10px;">📖 Negation (¬P) Guide</h4>
+                    <table class="truth-guide-table">
+                        <tr><th>P</th><th>¬P</th></tr>
+                        <tr><td>F</td><td><span style="color: var(--success-green);">T</span></td></tr>
+                        <tr><td>T</td><td><span style="color: var(--error-red);">F</span></td></tr>
+                    </table>
+                    <p style="font-size: 12px; color: var(--periwinkle); margin-top: 5px;">💡 Simply flip the value. NOT true = false, NOT false = true.</p>
+                </div>
+            `,
+            'NOR': `
+                <div class="truth-table-guide">
+                    <h4 style="color: var(--gold); margin: 15px 0 10px;">📖 NOR (P ↓ Q) Guide</h4>
+                    <table class="truth-guide-table">
+                        <tr><th>P</th><th>Q</th><th>P ↓ Q</th></tr>
+                        <tr><td>F</td><td>F</td><td><span style="color: var(--success-green);">T</span></td></tr>
+                        <tr><td>F</td><td>T</td><td><span style="color: var(--error-red);">F</span></td></tr>
+                        <tr><td>T</td><td>F</td><td><span style="color: var(--error-red);">F</span></td></tr>
+                        <tr><td>T</td><td>T</td><td><span style="color: var(--error-red);">F</span></td></tr>
+                    </table>
+                    <p style="font-size: 12px; color: var(--periwinkle); margin-top: 5px;">💡 True ONLY when both are false. (NOT OR)</p>
+                </div>
+            `,
+            'NAND': `
+                <div class="truth-table-guide">
+                    <h4 style="color: var(--gold); margin: 15px 0 10px;">📖 NAND (P ↑ Q) Guide</h4>
+                    <table class="truth-guide-table">
+                        <tr><th>P</th><th>Q</th><th>P ↑ Q</th></tr>
+                        <tr><td>F</td><td>F</td><td><span style="color: var(--success-green);">T</span></td></tr>
+                        <tr><td>F</td><td>T</td><td><span style="color: var(--success-green);">T</span></td></tr>
+                        <tr><td>T</td><td>F</td><td><span style="color: var(--success-green);">T</span></td></tr>
+                        <tr><td>T</td><td>T</td><td><span style="color: var(--error-red);">F</span></td></tr>
+                    </table>
+                    <p style="font-size: 12px; color: var(--periwinkle); margin-top: 5px;">💡 False ONLY when both are true. (NOT AND)</p>
+                </div>
+            `
+        };
+        
+        return guides[operation] || '';
     }
     
     showQuestFinale(char, questData) {
@@ -396,7 +574,14 @@ class LogicGrimoire {
     }
     
     submitQuiz(type) {
-        const cells = document.querySelectorAll('.truth-cell');
+        let cells;
+        
+        if (type === 'quest') {
+            cells = document.querySelectorAll('.truth-cell[data-result="true"]');
+        } else {
+            cells = document.querySelectorAll('.truth-cell');
+        }
+        
         let allCorrect = true;
         
         cells.forEach(cell => {
@@ -424,6 +609,8 @@ class LogicGrimoire {
                     feedback.innerHTML = `
                         <div class="feedback correct">✓ VERITAS! Gate ${this.currentGateIndex + 1} Unlocked!</div>
                         <div class="centered-song">🎵 ${gateSong.song}</div>
+                        <div class="gate-unlock-meaning">"${gateSong.meaning}"</div>
+                        <div class="gate-unlock-lyric">${gateSong.lyric}</div>
                     `;
                 }
             }
@@ -514,52 +701,101 @@ class LogicGrimoire {
     
     // Gate Quiz
     openGate(index) {
-        if (this.completedGates.includes(index)) {
-            alert('Gate already completed!');
-            return;
-        }
-        
         this.currentGateIndex = index;
         const op = OPERATIONS[index];
+        const gateSong = GATE_SONGS[index];
+        const isCompleted = this.completedGates.includes(index);
         const content = document.getElementById('gate-content');
         
-        content.innerHTML = `
-            <div class="quest-header">
-                <h2>🔮 Gate ${index + 1}</h2>
-                <p>${op.symbol} ${op.name}</p>
-                <p class="section-desc">${op.description}</p>
-            </div>
+        if (isCompleted && gateSong) {
+            const imageFileName = gateSong.file.replace('.mp3', '.png').replace(/[^a-zA-Z0-9._-]/g, '').toLowerCase();
+            const gateImageMap = {
+                0: 'avemujica.png', 1: 'sophie.png', 2: 'deepintoforest.png', 3: 'killkiss.png',
+                4: 'kuronobirthday.png', 5: 'crucifixX.png', 6: 'georgette.png', 7: 'air.png',
+                8: 'octagramdance.png', 9: 'XII.png', 10: 'fire.png', 11: 'water.png',
+                12: 'earth.png', 13: 'alterego.png', 14: 'divine.png', 15: 'ether.png'
+            };
+            const imgSrc = `assets/images/songs/${gateImageMap[index]}`;
             
-            <div class="quest-stage">
-                <p class="quest-challenge">Fill in the truth table:</p>
+            content.innerHTML = `
+                <div class="quest-header">
+                    <h2>✓ Gate ${index + 1} - Unlocked</h2>
+                    <p>${op.symbol} ${op.name}</p>
+                    <p class="section-desc">${op.description}</p>
+                </div>
                 
-                <table class="truth-table-quiz">
-                    <thead>
-                        <tr>
-                            <th>P</th>
-                            <th>Q</th>
-                            <th>${op.symbol}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${[
-                            { p: 'F', q: 'F' },
-                            { p: 'F', q: 'T' },
-                            { p: 'T', q: 'F' },
-                            { p: 'T', q: 'T' }
-                        ].map((row, i) => `
+                <div class="gate-details" style="text-align: center; padding: 20px;">
+                    <div class="gate-detail-section" style="margin: 15px 0; padding: 15px; background: var(--shadow); border-radius: 8px;">
+                        <h4 style="color: var(--gold); margin-bottom: 10px;">🎵 Song</h4>
+                        <p style="font-size: 18px; color: var(--cream);">${gateSong.song}</p>
+                    </div>
+                    
+                    <div class="gate-detail-section" style="margin: 15px 0; padding: 15px; background: var(--shadow); border-radius: 8px;">
+                        <h4 style="color: var(--gold); margin-bottom: 10px;">⚙️ Operation</h4>
+                        <p style="font-size: 16px; color: var(--periwinkle);">${gateSong.operation}</p>
+                    </div>
+                    
+                    <div class="gate-detail-section" style="margin: 15px 0; padding: 15px; background: var(--shadow); border-radius: 8px;">
+                        <h4 style="color: var(--gold); margin-bottom: 10px;">📜 Meaning</h4>
+                        <p style="font-size: 14px; color: var(--cream); font-style: italic;">"${gateSong.meaning}"</p>
+                    </div>
+                    
+                    <div class="gate-detail-section" style="margin: 15px 0; padding: 15px; background: var(--shadow); border-radius: 8px;">
+                        <h4 style="color: var(--gold); margin-bottom: 10px;">🎤 Lyric</h4>
+                        <p style="font-size: 13px; color: var(--periwinkle);">${gateSong.lyric}</p>
+                    </div>
+                    
+                    <div style="background: ${gateSong.color}; padding: 20px; border-radius: 10px; margin: 20px auto; display: inline-block;">
+                        <img src="${imgSrc}" 
+                             alt="${gateSong.song}" 
+                             style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px; border: 3px solid var(--gold);"
+                             onerror="this.parentElement.innerHTML='<div style=width:200px;height:200px;display:flex;align-items:center;justify-content:center;color:var(--cream);font-size:48px;>🎵</div>'">
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="submit-btn" onclick="app.closeModal('gate')">Close</button>
+                </div>
+            `;
+        } else {
+            content.innerHTML = `
+                <div class="quest-header">
+                    <h2>🔮 Gate ${index + 1}</h2>
+                    <p>${op.symbol} ${op.name}</p>
+                    <p class="section-desc">${op.description}</p>
+                </div>
+                
+                <div class="quest-stage">
+                    <p class="quest-challenge">Fill in the truth table:</p>
+                    
+                    <table class="truth-table-quiz">
+                        <thead>
                             <tr>
-                                <td>${row.p}</td>
-                                <td>${row.q}</td>
-                                <td class="truth-cell" data-index="${i}" data-correct="${op.truthTable[i]}" onclick="app.toggleTruth(this)">-</td>
+                                <th>P</th>
+                                <th>Q</th>
+                                <th>${op.symbol}</th>
                             </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-                <div id="quiz-feedback"></div>
-                <button class="submit-btn" onclick="app.submitQuiz('gate')">Unlock Gate</button>
-            </div>
-        `;
+                        </thead>
+                        <tbody>
+                            ${[
+                                { p: 'F', q: 'F' },
+                                { p: 'F', q: 'T' },
+                                { p: 'T', q: 'F' },
+                                { p: 'T', q: 'T' }
+                            ].map((row, i) => `
+                                <tr>
+                                    <td>${row.p}</td>
+                                    <td>${row.q}</td>
+                                    <td class="truth-cell" data-index="${i}" data-correct="${op.truthTable[i]}" onclick="app.toggleTruth(this)">-</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    <div id="quiz-feedback"></div>
+                    <button class="submit-btn" onclick="app.submitQuiz('gate')">Unlock Gate</button>
+                </div>
+            `;
+        }
         
         document.getElementById('gate-modal').classList.add('active');
     }
