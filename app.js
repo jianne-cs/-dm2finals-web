@@ -586,15 +586,17 @@ class LogicGrimoire {
         let cells;
         
         if (type === 'quest') {
-            cells = document.querySelectorAll('.truth-cell[data-result="true"]');
+            cells = document.querySelectorAll('#quest-content .truth-cell[data-result="true"]');
         } else {
-            cells = document.querySelectorAll('.truth-cell');
+            cells = document.querySelectorAll('#gate-content .truth-cell');
         }
         
         let allCorrect = true;
         
         cells.forEach(cell => {
-            const correct = cell.dataset.correct === 'true';
+            const correctVal = cell.dataset.correct;
+            if (correctVal === 'null' || correctVal === 'undefined') return; // skip don't-care rows
+            const correct = correctVal === 'true';
             const selected = cell.classList.contains('selected-true');
             
             if (correct !== selected) {
@@ -651,7 +653,7 @@ class LogicGrimoire {
     
     resetQuizCells() {
         this.quizAttempts = 0;
-        const cells = document.querySelectorAll('.truth-cell');
+        const cells = document.querySelectorAll('#gate-content .truth-cell');
         cells.forEach(cell => {
             cell.classList.remove('selected-true', 'selected-false');
             cell.textContent = '-';
