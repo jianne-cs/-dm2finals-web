@@ -161,7 +161,9 @@ const GATE_SONGS = [
         operation: 'NAND',
         meaning: "The band's anthem - not all is as it seems - false only when everything appears true",
         lyric: "We are not merely what you see before you...",
-        color: '#5C3A3A'
+        color: '#5C3A3A',
+        youtube: 'https://youtu.be/QDsd0nyzwz0?si=7u_8iwmpsy_ehrnk',
+        spotify: 'https://open.spotify.com/track/2W99f2JxL6d2myh7nKAJKg?si=51214affffec4ce2'
     },
     { 
         index: 1, 
@@ -171,7 +173,9 @@ const GATE_SONGS = [
         operation: 'AND',
         meaning: 'Wisdom requires both knowledge AND understanding - both heart and mind must speak',
         lyric: "In the pursuit of truth, both heart and mind must speak...",
-        color: '#9E7B9B'
+        color: '#9E7B9B',
+        youtube: 'https://youtu.be/ivXQ21xDHfE?si=wiR7E6oEPGFGC-AD',
+        spotify: 'https://open.spotify.com/track/3kNstETQbKxO8bSph97UZO?si=0da83af8115b4c2e'
     },
     { 
         index: 2, 
@@ -181,7 +185,9 @@ const GATE_SONGS = [
         operation: 'NOR',
         meaning: 'Neither path leads where you expect - both paths are false',
         lyric: "Lost in the woods where no trail is true...",
-        color: '#2C4A2C'
+        color: '#2C4A2C',
+        youtube: 'https://youtu.be/6USzFX8HnSY?si=Gq3tMYCjSztxeOcx',
+        spotify: 'https://open.spotify.com/track/4Mudg5HCSIhNyjN8Rg08gM?si=2fc76ffb90474fac'
     },
     { 
         index: 3, 
@@ -191,7 +197,9 @@ const GATE_SONGS = [
         operation: 'XOR',
         meaning: 'Kill or kiss - exactly one must be chosen - the ultimate exclusive choice',
         lyric: "The line between love and death blurs...",
-        color: '#8B0000'
+        color: '#8B0000',
+        youtube: 'https://youtu.be/W0DCsoJPCa8?si=JFHHzTwKJ_8moFQt',
+        spotify: 'https://open.spotify.com/track/469KRyxbgklNcb6iLhbztB?si=2d31ca336c3543c6'
     },
     { 
         index: 4, 
@@ -201,7 +209,9 @@ const GATE_SONGS = [
         operation: 'OR',
         meaning: 'Darkness or birth - at least one must be true - duality of existence',
         lyric: "A birthday in darkness, where shadows or light may prevail...",
-        color: '#2D1B1B'
+        color: '#2D1B1B',
+        youtube: 'https://youtu.be/WIhtJ7eJ-oI?si=Gk_97sXXk7HRnCH8',
+        spotify: 'https://open.spotify.com/track/4GymnGAHkCO44kUQk4yPoN?si=163a4ddba6a74370'
     },
     { 
         index: 5, 
@@ -211,7 +221,9 @@ const GATE_SONGS = [
         operation: 'Implication',
         meaning: 'If you bear the cross, then you must suffer - the promise of sacrifice',
         lyric: "The tenth sacrifice carries the weight of all...",
-        color: '#4A2C2C'
+        color: '#4A2C2C',
+        youtube: 'https://youtu.be/XP8al1l38Po?si=Z0VuU87wfrVJxK7b',
+        spotify: 'https://open.spotify.com/track/1CWxAyTe6Rst8ZHSTz1O3G?si=21b24e0879e04179'
     },
     { 
         index: 6, 
@@ -221,7 +233,9 @@ const GATE_SONGS = [
         operation: 'XNOR',
         meaning: 'I am you if and only if you are me - perfect mutual identity and reflection',
         lyric: "When I become you and you become me, we are complete...",
-        color: '#9E7B9B'
+        color: '#9E7B9B',
+        youtube: 'https://youtu.be/vKDa7yfpd2M?si=CH2nPVmd77hPKNCP',
+        spotify: 'https://open.spotify.com/track/6BCuusKOo7e2KT22kKghRV?si=b4644e17a2ce4a38'
     },
     { 
         index: 7, 
@@ -231,7 +245,9 @@ const GATE_SONGS = [
         operation: 'Negation of P',
         meaning: 'Wind carries - denies the expected - invisible forces negate what we know',
         lyric: "Invisible forces guide our fate...",
-        color: '#6BA5B0'
+        color: '#6BA5B0',
+        youtube: 'https://youtu.be/pMk3iHPlUaI?si=OCjju3ZxGeOcpIpR',
+        spotify: 'https://open.spotify.com/track/6GD5lkW9g8CdGVgvVqgOZb?si=3d9ec26c1e65411c'
     },
     { 
         index: 8, 
@@ -241,7 +257,9 @@ const GATE_SONGS = [
         operation: 'Tautology',
         meaning: 'The eight-pointed star dances eternally - always true, always present',
         lyric: "Eight points, one circle, all moving as one...",
-        color: '#C49A6C'
+        color: '#C49A6C',
+        youtube: 'https://youtu.be/tevtnb427Mw?si=JWVCyELDu5Q-dgd1',
+        spotify: 'https://open.spotify.com/track/4eR1tqIsDouIiI1cbTuCMy?si=ca4846f103694560'
     },
     { 
         index: 9, 
@@ -251,7 +269,9 @@ const GATE_SONGS = [
         operation: 'Contradiction',
         meaning: 'Freedom is impossible - always false - eternal confinement',
         lyric: "Twelve chains bind the soul in eternal confinement...",
-        color: '#1A1A1A'
+        color: '#1A1A1A',
+        youtube: 'https://youtu.be/0YNMV7xljD4?si=POEcDjmqUPYSDoRq',
+        spotify: 'https://open.spotify.com/track/5sUCmYVWX2blPomsCOu0Ij?si=b86720e2a9f24d5e'
     },
     { 
         index: 10, 
@@ -261,7 +281,9 @@ const GATE_SONGS = [
         operation: 'Converse Implication',
         meaning: 'Fire transforms - if it burns, then it was ignited - reverse cause and effect',
         lyric: "The triangle burns with consuming passion...",
-        color: '#C44C4C'
+        color: '#C44C4C',
+        youtube: 'https://youtu.be/2O5C0mJx0Fs?si=KbEDO1_9h3x8bL-p',
+        spotify: 'https://open.spotify.com/track/4EXonRvtWa0TdWV5l5XvzY?si=009944b7cfe64b17'
     },
     { 
         index: 11, 
@@ -271,7 +293,9 @@ const GATE_SONGS = [
         operation: 'Material Nonimplication',
         meaning: 'Water carves - only when P without Q - flows under specific conditions',
         lyric: "Flowing tears shape the stone of memory...",
-        color: '#3A6B8C'
+        color: '#3A6B8C',
+        youtube: 'https://youtu.be/NB3PxWLn9v4?si=eAlyENHDIOZMZL15',
+        spotify: 'https://open.spotify.com/track/60pIkGRQ1VnpT0d8LDfb8U?si=1d97bdbec3234eaf'
     },
     { 
         index: 12, 
@@ -281,7 +305,9 @@ const GATE_SONGS = [
         operation: 'Converse Nonimplication',
         meaning: 'Earth grounds - only when Q without P - the soil remembers selectively',
         lyric: "The soil remembers what we forget...",
-        color: '#6B4C2C'
+        color: '#6B4C2C',
+        youtube: 'https://youtu.be/WqQPM0dZpXc?si=qUrX-Wya_ag3c-E5',
+        spotify: 'https://open.spotify.com/track/0k7IpY0imMYMfZtZ49tQA5?si=73e177e54b2a4ab9'
     },
     { 
         index: 13, 
@@ -291,7 +317,9 @@ const GATE_SONGS = [
         operation: 'Projection P',
         meaning: 'The mask and the face - true self projects regardless of false self',
         lyric: "The mask and the face cannot both be real...",
-        color: '#8A6E8E'
+        color: '#8A6E8E',
+        youtube: 'https://youtu.be/cVfQBLdIUXk?si=rRAuI08E8XQCKJzg',
+        spotify: 'https://open.spotify.com/track/0ZYgJq7TgMBm7Gp96A2nz0?si=9d959aae34ba4c10'
     },
     { 
         index: 14, 
@@ -301,7 +329,9 @@ const GATE_SONGS = [
         operation: 'Projection Q',
         meaning: 'The gods speak only when we listen - divine truth is projected through faith',
         lyric: "The gods speak only when we listen...",
-        color: '#C49A6C'
+        color: '#C49A6C',
+        youtube: 'https://youtu.be/6bA-vjvi9oI?si=hyMpgy864HfyxlKB',
+        spotify: 'https://open.spotify.com/track/2EXMoOCIHbhnLzDg5gZZ4U?si=5581cc5840794941'
     },
     { 
         index: 15, 
@@ -311,16 +341,18 @@ const GATE_SONGS = [
         operation: 'Negation of Q',
         meaning: 'The fifth element negates the other four - beyond the four, the void speaks',
         lyric: "Beyond the four, the void speaks eternal truths...",
-        color: '#C4A962'
+        color: '#C4A962',
+        youtube: 'https://youtu.be/z6k7YIIZ6Hk?si=zc1za1Tj66E-moK0',
+        spotify: 'https://open.spotify.com/track/5tixkNY0ZcxRkkmWfZqSDL?si=d5ce394d5e424849'
     }
 ];
 
 const CHARACTER_SONG_MAP = {
-    sakiko: { song: 'Masquerade Rhapsody Request', file: "Ave Mujica - Masquerade Rhapsody Request.mp3" },
-    uika: { song: 'Angles', file: 'Ave Mujica - Angles (Official Music Video).mp3' },
-    mutsumi: { song: "Choir 'S' Choir", file: "ChoirSChoir.mp3" },
-    umiri: { song: "'S/' The Way", file: "StheWay.mp3" },
-    nyamu: { song: 'Blue Eyes', file: 'Ave Mujica - Blue Eyes.mp3' }
+    sakiko: { song: 'Masquerade Rhapsody Request', file: "Ave Mujica - Masquerade Rhapsody Request.mp3", youtube: 'https://youtu.be/VLxM8q6PF4I?si=dyYEDG2zjPVAt7ui', spotify: 'https://open.spotify.com/track/3RtcR7pL6YNQ57fsRciMdp?si=4ddc0dd939424324' },
+    uika: { song: 'Angles', file: 'Ave Mujica - Angles (Official Music Video).mp3', youtube: 'https://youtu.be/MbVgSM7Hhso?si=8BmaevUUiv2wvZXK', spotify: 'https://open.spotify.com/track/1bQY4fbYAqyPAElVWhgLjG?si=b9b66856184e4a86' },
+    mutsumi: { song: "Choir 'S' Choir", file: "ChoirSChoir.mp3", youtube: 'https://youtu.be/7llj4mh4L-8?si=-XK56SDHA4e-016o', spotify: 'https://open.spotify.com/track/4lPNuizRfDvXB8ltrNPd1v?si=1d2b98bc367b45bf' },
+    umiri: { song: "'S/' The Way", file: "StheWay.mp3", youtube: 'https://youtu.be/p6ptNdglySk?si=f_Fekj55MjZ_thw3', spotify: 'https://open.spotify.com/track/6O36bjXdeg0e1wv51Qp1kw?si=4182bbb585ee4d78' },
+    nyamu: { song: 'Blue Eyes', file: 'Ave Mujica - Blue Eyes.mp3', youtube: 'https://youtu.be/-4EBzA6-g8k?si=OIZlCsAu1XWYZGUE', spotify: 'https://open.spotify.com/track/4UQmtceQpVzfSgwW7EWfwf?si=0ebd9933e9e54754' }
 };
 
 const SECRET_ENDING_CONTENT = {
@@ -356,6 +388,8 @@ And our truth is whatever we make it."`,
                 umiri: '"NOR kept us safe from hurt. But being safe also meant being alone."',
                 nyamu: '"NAND made us chase approval. But the only approval we needed was our own."'
             },
+            youtube: 'https://youtu.be/OT9KqYBAkQc?si=krwiBWnX1DGCwkeG',
+            spotify: 'https://open.spotify.com/track/0iNEdxHGgVMsCBgHFycwmL?si=e5994a2bdcab4b13',
             finalSong: '[They play one final song together - not about escaping their voids, but about filling them with each other.]',
             finalQuote: `"We are Ave Mujica. Not because we're broken.
 But because we chose to heal together."`,

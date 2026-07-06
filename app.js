@@ -188,7 +188,7 @@ class LogicGrimoire {
                         <h3 style="color: ${secretColor};">The Final Masquerade</h3>
                         <p class="character-role">Secret Ending</p>
                         <p class="character-op">🌟 Truth Seeker</p>
-                        <div class="character-song-unlocked" style="border-color: ${secretColor};">🎵 Kamisama Baka</div>
+                        <div class="character-song-unlocked" style="border-color: ${secretColor};">🎵 Memento Mori</div>
                         <span class="status-badge status-completed">✓ UNLOCKED</span>
                         <button class="quest-btn">View Ending</button>
                     </div>
@@ -496,6 +496,15 @@ class LogicGrimoire {
                 <div class="songs-list centered-song" style="border-color: ${charColor};">
                     🎵 ${char.song}
                 </div>
+                <div style="margin-top: 15px; padding: 12px; border-top: 2px solid ${charColor}; border-bottom: 2px solid ${charColor};">
+                    <p style="color: var(--gold); margin-bottom: 8px;">🎵 "${char.song}" by Ave Mujica © Bushiroad</p>
+                    <p style="color: var(--cream); font-size: 14px; margin-bottom: 10px;">Support the official release:</p>
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                        <a href="${char.youtube}" target="_blank" rel="noopener noreferrer" style="color: var(--periwinkle); text-decoration: none; font-size: 16px;">▶ YouTube</a>
+                        <a href="${char.spotify}" target="_blank" rel="noopener noreferrer" style="color: var(--periwinkle); text-decoration: none; font-size: 16px;">🎧 Spotify</a>
+                        <a href="https://avemujica.bang-dream.com" target="_blank" rel="noopener noreferrer" style="color: var(--periwinkle); text-decoration: none; font-size: 16px;">🌐 avemujica.bang-dream.com</a>
+                    </div>
+                </div>
             </div>
             
             <button class="submit-btn" onclick="app.closeModal('quest')">Return to Grimoire</button>
@@ -506,7 +515,7 @@ class LogicGrimoire {
         const colors = {
             sakiko: '#a4c5d4',
             uika: '#fcf1da',
-            mutsumi: '#fcf1da',
+            mutsumi: '#b9c2b4',
             umiri: '#8f8f8c',
             nyamu: '#b1a2bf'
         };
@@ -751,6 +760,16 @@ class LogicGrimoire {
                              style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px; border: 3px solid var(--gold);"
                              onerror="this.parentElement.innerHTML='<div style=width:200px;height:200px;display:flex;align-items:center;justify-content:center;color:var(--cream);font-size:48px;>🎵</div>'">
                     </div>
+                    
+                    <div style="margin-top: 20px; padding: 15px; border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold);">
+                        <p style="color: var(--gold); margin-bottom: 8px;">🎵 "${gateSong.song}" by Ave Mujica © Bushiroad</p>
+                        <p style="color: var(--cream); font-size: 14px; margin-bottom: 10px;">Support the official release:</p>
+                        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                            <a href="${gateSong.youtube}" target="_blank" rel="noopener noreferrer" style="color: var(--periwinkle); text-decoration: none; font-size: 16px;">▶ YouTube</a>
+                            <a href="${gateSong.spotify}" target="_blank" rel="noopener noreferrer" style="color: var(--periwinkle); text-decoration: none; font-size: 16px;">🎧 Spotify</a>
+                            <a href="https://avemujica.bang-dream.com" target="_blank" rel="noopener noreferrer" style="color: var(--periwinkle); text-decoration: none; font-size: 16px;">🌐 avemujica.bang-dream.com</a>
+                        </div>
+                    </div>
                 </div>
                 
                 <div style="text-align: center; margin-top: 20px;">
@@ -899,7 +918,7 @@ class LogicGrimoire {
             this.playlist.push({
                 path: 'assets/music/character quests songs/secret ending/',
                 file: 'Kamisama Baka.mp3',
-                name: '🌟 Kamisama Baka - Secret Ending'
+                name: '🌟 Memento Mori - Secret Ending'
             });
         }
         
@@ -995,6 +1014,18 @@ class LogicGrimoire {
                 </div>
                 <div class="epilogue">${displayContent.epilogue || content.epilogue || displayContent.finalSong ? content.finalSong : ''}</div>
                 ` : ''}
+                
+                ${displayContent.youtube && displayContent.spotify ? `
+                <div style="margin-top: 20px; padding: 15px; border-top: 2px solid ${secretColor}; border-bottom: 2px solid ${secretColor};">
+                    <p style="color: var(--gold); margin-bottom: 8px;">🎵 "Memento Mori" by Ave Mujica © Bushiroad</p>
+                    <p style="color: var(--cream); font-size: 14px; margin-bottom: 10px;">Support the official release:</p>
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                        <a href="${displayContent.youtube}" target="_blank" rel="noopener noreferrer" style="color: var(--periwinkle); text-decoration: none; font-size: 16px;">▶ YouTube</a>
+                        <a href="${displayContent.spotify}" target="_blank" rel="noopener noreferrer" style="color: var(--periwinkle); text-decoration: none; font-size: 16px;">🎧 Spotify</a>
+                        <a href="https://avemujica.bang-dream.com" target="_blank" rel="noopener noreferrer" style="color: var(--periwinkle); text-decoration: none; font-size: 16px;">🌐 avemujica.bang-dream.com</a>
+                    </div>
+                </div>
+                ` : ''}
             </div>
             <div style="text-align: center; margin-top: 20px;">
                 <button class="submit-btn" onclick="app.closeFinalMasquerade()">Return to the Grimoire</button>
@@ -1023,7 +1054,7 @@ class LogicGrimoire {
         
         // Secret ending
         if (this.areAllQuestsCompleted()) {
-            songsHtml += `<div class="song-item secret">🌟 Kamisama Baka - Secret Ending</div>`;
+            songsHtml += `<div class="song-item secret">🌟 Memento Mori - Secret Ending</div>`;
         }
         
         return songsHtml;
