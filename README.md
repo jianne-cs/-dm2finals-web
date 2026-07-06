@@ -505,4 +505,10 @@ This project is an **educational, non-commercial** tool for learning logic gates
 - 🌐 Official Website: https://avemujica.bang-dream.com/
 - 📺 Anime Official Site: https://en.bang-dream.com/anime/avemujica/
 
+### Per-Song Credits
+Each unlocked song in the **16 Gates** and **Character Quests** modals displays direct links to support the official release:
+- **▶ YouTube** - Official music video
+- **🎧 Spotify** - Stream on Spotify
+- **🌐 avemujica.bang-dream.com** - Official Ave Mujica site
+
 **Disclaimer:** This project is not affiliated with, endorsed by, or sponsored by Bushiroad Inc. or Ave Mujica. Music is used as a study reward under fair use for educational purposes. Please support the official release.
