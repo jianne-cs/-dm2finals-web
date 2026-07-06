@@ -753,7 +753,7 @@ class LogicGrimoire {
                     
                     <div class="gate-detail-section" style="margin: 15px 0; padding: 15px; background: var(--shadow); border-radius: 8px;">
                         <h4 style="color: var(--gold); margin-bottom: 10px;">🎤 Lyric</h4>
-                        <p style="font-size: 16px; color: var(--periwinkle);">${gateSong.lyric}</p>
+                        <p style="font-size: 18px; color: var(--periwinkle);">${gateSong.lyric}</p>
                     </div>
                     
                     <div style="background: ${gateSong.color}; padding: 20px; border-radius: 10px; margin: 20px auto; display: inline-block;">
