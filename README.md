@@ -490,3 +490,19 @@ And somewhere, a new melody begins to form...
 | All songs + secret ending | `✨` |
 
 For educational purposes.
+
+---
+
+## Credits & Copyright
+
+This project is an **educational, non-commercial** tool for learning logic gates.
+
+**Ave Mujica** and all associated music, characters, logos, and media are the exclusive property of **Bushiroad Inc.** All rights reserved.
+
+### Official Links to Support Ave Mujica:
+- 📺 YouTube: https://www.youtube.com/@bang_dream_AveMujica
+- 🎧 Spotify: https://open.spotify.com/artist/5BKIH2Kwc6LbetG04Boai7
+- 🌐 Official Website: https://avemujica.bang-dream.com/
+- 📺 Anime Official Site: https://en.bang-dream.com/anime/avemujica/
+
+**Disclaimer:** This project is not affiliated with, endorsed by, or sponsored by Bushiroad Inc. or Ave Mujica. Music is used as a study reward under fair use for educational purposes. Please support the official release.
